@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta https-equiv-"X-UA-Compatible" cotent=""IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            h3,li{color : brown;} /*태그명 selector*/
+            div>div>strong{background: yellow;}/*자식 selector*/
+            ul strong {color : dodgerblue} /*자손 selector*/
+            .warning {color : red} /* class selector */
+            body.main{ background : aliceblue} /*tag class selector*/
+            #list { background: mistyrose;} /*id selector*/ 
+            #list span {color: forestgreen;} /*id 자손*/
+            h3:first-letter{color:red} /*가상 클래스*/
+            li.hover {background-color: yellowgreen;}/*가상 클래스*/
+        </style>
+    </head>
+    <body calss="main">
+        <h3>Web Programming</h3>
+        <hr>
+        <div>
+            <div>2학기 <strong> 학습내용</strong>입니다</div>
+            <ul id="list">
+                <li><span>HTML5</span></li>
+                <li><strong>CSS3</strong></li>
+                <li>JAVASCRIPT</li>
+            </ul>
+        </div>
+        <div class="warning">60점 이하는 fail!></div>
+
+        </div>
+    </body>
+</html>
