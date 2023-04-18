@@ -1,0 +1,31 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script>
+            //주석 ctrl + //
+            /*
+            주석공간
+            */
+           //스크립트 위치는 어디에 있던 상관은 없다.
+            function fn_over(obj){
+            console.log('콘솔에 프린트됨.');
+            console.log(obj);
+            obj.src = 'media/strawberry.png';
+           }
+           function fn_out(obj){
+            obj.src='media/banana.png';
+           }
+        </script>
+    </head>
+    <body>
+        <h3>마우스를 올려 보세요</h3>
+        <hr>
+        <!--JS 사용 (1) HTML태그 이벤트리스너에 작성 -->
+        <img width = "device-width" src="media/strawberry.png" alt="" onmouseover="fn_over(this)", onmouseout="fn_out(this)">
+        <!--해당 태그의 this 는 img 태그 자신을 의미함-->
+
+    </body>
+</html>
