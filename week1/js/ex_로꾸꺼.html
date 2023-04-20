@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>로꾸꺼</title>
+    <!--텍스트를 입력 받아 거꾸로 출력하시오 -->
+    <script>
+        let msg = prompt("입력하세요!!:");
+
+        document.write("<h1>입력값 : "+msg +"</h1>" );
+        //거꾸로 출력 ex ) 홍길동 ->  동길홍
+        msg=msg.split('').reverse();
+        let msg2 = "";
+        for(i of msg){
+            msg2+=i;
+        }
+        document.write("<h1>출력값 : "+msg2 +"</h1>" );
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
