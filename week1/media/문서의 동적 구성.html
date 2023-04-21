@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://127.0.0.1:5500/week1/day5/ex8_10.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>문서의 동적 구성</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        function fn_createDIV(){
+            let obj = document.getElementById('parent');
+            let newDIV = document.createElement('div');
+            let count = document.getElementsByClassName('div').length;
+            console.log(document.getElementsByClassName('div'));
+            console.log(count);
+            let button = document.createElement('button');
+
+            newDIV.innerHTML = "새로 생성된 DIV"+"("+count+")";
+            newDIV.setAttribute('class','myDiv');
+            newDIV.style.backgroundColor='yellow';
+
+            button.innerHTML = "삭제 하기";
+            button.setAttribute.onclick = function(){
+                let p =this.parentElement;
+                p.removeChild(p);
+            }
+            // newDIV.onclick= function(){ // onclick은 이벤트 리스너 click 은 이벤트
+            //     let p = this.parentElement;
+            //     p.removeChild(this);//p->parentElement->.removeChild(this->newDIV) 자신을 p로부터 제거
+            // }
+            obj.appendChild(newDIV);
+            newDIV.appendChild(button);
+        }
+    </script></head>
+    
+<body id="parent">
+    <h3>div 객체를 동적으로 생성, 삭제하는 예제</h3>
+    <hr>
+    <p> DOM 트리에 동적으로 객체를 삽입할 수 있습니다.</p>
+    <a href="javascript: fn_createDIV()">DIV 생성</a>
+    <p id="parent"></p>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+<div class="myDiv" style="background-color: yellow;">새로 생성된 DIV(0)<button>삭제 하기</button></div><div class="myDiv" style="background-color: yellow;">새로 생성된 DIV(0)<button>삭제 하기</button></div><div class="myDiv" style="background-color: yellow;">새로 생성된 DIV(0)<button>삭제 하기</button></div><div class="myDiv" style="background-color: yellow;">새로 생성된 DIV(0)<button>삭제 하기</button></div><div class="myDiv" style="background-color: yellow;">새로 생성된 DIV(0)<button>삭제 하기</button></div><div class="myDiv" style="background-color: yellow;">새로 생성된 DIV(0)<button>삭제 하기</button></div><div class="myDiv" style="background-color: yellow;">새로 생성된 DIV(0)<button>삭제 하기</button></div><div class="myDiv" style="background-color: yellow;">새로 생성된 DIV(0)<button>삭제 하기</button></div><div class="myDiv" style="background-color: yellow;">새로 생성된 DIV(0)<button>삭제 하기</button></div><div class="myDiv" style="background-color: yellow;">새로 생성된 DIV(0)<button>삭제 하기</button></div><div class="myDiv" style="background-color: yellow;">새로 생성된 DIV(0)<button>삭제 하기</button></div><div class="myDiv" style="background-color: yellow;">새로 생성된 DIV(0)<button>삭제 하기</button></div><div class="myDiv" style="background-color: yellow;">새로 생성된 DIV(0)<button>삭제 하기</button></div></body></html>

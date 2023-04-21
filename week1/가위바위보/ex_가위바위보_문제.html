@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<style>
+		
+	</style>
+<meta charset = "UTF-8">
+<title> 가위바위보 </title>
+<script>
+    function reGame (){
+		location.reload();
+	}
+	function print (com,game){
+		document.write('<img src="images/math_com_'+com+'.jpg">com');
+		document.write('<img src="images/math_user_'+game+'.jpg">user');
+	}
+	function printResult(state){
+		document.write('<img src="images/game_'+state+'.jpg">com');
+		if(state==0)
+		document.write('<img src="images/game_3.jpg" onclick="reGame()"></img>');
+	}
+	//가위 1 바위 2 보 3;
+	const 가위=1;
+	const 바위=2;
+	const 보=  3;
+	
+	let result =0;
+	let score =0;
+	document.write("<h1>컴퓨터 가위, 바위, 보 맞추기</h1>");
+	
+	let com = Math.ceil( Math.random() * 3 );
+	console.log("com is :"+com);
+	let gam =prompt("가위, 바위, 보 중 선택하세요?");
+	console.log("gam is" + gam);
+	let game= 0;
+	switch (gam){
+		case "보" : game++;
+		case "바위": game++;
+		case "가위": game++;
+	}
+	console.log("game is"+game);
+	//if user input something wrong
+	//give err messge
+	if(game==0){
+		result =1;	
+	}
+	//winning
+	if(game!=가위&&com<game){
+		result=1;
+	}
+	if(game==가위&&com==보){
+		result=1;
+	}
+	//defeate
+	if(com!=가위&&com>game){
+		result=-1
+	}
+	if(com==가위&&game==보){
+		result=-1
+	}
+	//draw
+	if(com==game){
+		result =0
+	}
+	//랜덤함수를 활용하여 가위바위보 게임을 만들어보세요 ^^ 
+	print(com,game);
+	printResult(result);
+	
+</script>
+</head>
+<body>
+</body>
+</html>

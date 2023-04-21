@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>ID</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <button onclick="fn_changeSize('+')">텍스트 크기변경</button>
+    <button onclick="fn_changeSizeDown()">텍스트 크기변경</button>
+    <p id="text1">이 텍스트의 크기를 변경하세요!!!</p>
+    
+    <button onclick="fn_visibility()"> 숨기기/보이기 </button>
+    <p id="box">이 텍스트를 숨기거나 보이게 하세요!!!</p>
+    <img id="slider" src="../media/sdxl2.png" width="device-width" alt=""><img>
+    <script>
+        let size=20;
+        function fn_changeSize(){
+            size++;
+            let text=document.getElementById("text1");
+            text.style.fontSize = size+'px';
+        }
+        function fn_changeSizeDown(){
+            size--;
+            let text=document.getElementById("text1");
+            text.style.fontSize = size+'px';
+        }
+        function fn_changeSize(flag){
+            let text = document.getElementById('text1');
+            if(flag=="+"){
+                size++;
+            }else if(flag=="-"){
+                size--;
+            }
+            text.style.fontSize= size+'px';
+        }
+        function fn_visibility(){
+            //css셀렉터 스타일로 가져옴
+            let box = document.querySelector('#box');
+                                // === << 값도같고 타입도 같을때 true 
+            box.style.display = box.style.display === "none"? "block" :"none" ;
+        }
+        //setInterval(fn_visibility,500);
+        let images= ['../media/sdxl2.png','../media/sdxl3.png','../media/sdxl4.png',
+    '../media/sdxl5.png','../media/sdxl6.png','../media/sdxl7.png',
+    '../media/sdxl8.png']
+        currentIdx =0;
+        function fn_next(){
+            let slider = document.getElementById('slider');
+            currentIdx = (currentIdx + 1) % images.length;
+            console.log(currentIdx);
+            slider.src= images[currentIdx];
+        }
+        setInterval(fn_next,100)
+    </script>
+    
+</body>
+</html>
