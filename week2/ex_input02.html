@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>input select</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <h1>select box 변경</h1>
+    <hr>
+    <form action="http://www.naver.com" method ="get">
+        <select name="p_set" id="p_select" onchange="fn_change(this)">
+            <option value="없음" selected>선택하세요</option>
+            <option value="찬웅쌤">JAVA</option>
+            <option value="용우쌤">JSP</option>
+        </select>
+        <!-- 선택값 가져오기 버튼 클릭시 select 선택 값을 p_txt2 value 에 넣어주세요-->
+        <input type="button" id="p_btn" value="선택값 가져오기" onclick="fn_click()">
+        <!-- disable 은 form태그 전송시 전송이 안됨
+            readonly는 form 태그 전송시 전송이 됨.
+        -->
+        <input type="text" id="p_txt" readonly disabled>
+        <input type="text" id="p_txt2" readonly disabled>
+        <input type="reset" name = "" id="리셋">
+        <input type="submit" value="전송">
+        </select>
+    </form>
+    <script>
+        function fn_change(obj){
+            console.log(obj.selectedIndex);
+            console.log(obj.options[obj.selectedIndex].value);
+            console.log(obj.options[obj.selectedIndex].text);
+            document.getElementById('p_txt').value =obj.options[obj.selectedIndex].value;
+            //selected box의 선택된 요소의 인덱스 selectedIndex
+            document.getElementById('p_txt').value = obj.options[obj.selectedIndex].value;
+        }
+
+        function fn_click(){
+            // document.getElementById('p_txt2').value = document.getElementById('p_txt').value;
+            let obj = document.getElementById('p_select');
+            console.log(obj);
+            document.getElementById('p_txt2').value = obj.options[obj.selectedIndex].value;
+        }
+    </script>
+</body>
+</html>

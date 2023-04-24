@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>radio 버튼</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+</head>
+<body>
+<h3>radio 버튼 선택값 출력</h3>    
+<hr>
+<form action="">
+    남:<input type = "radio" name="gender" value= "M">
+    여:<input type = "radio" name ="gender" value="F">
+    <input type="button" value="확인" onclick="fn_check('gender')"><br>
+    삼겹살 :<input type="radio" name="food" value="Pork">
+    피자 :<input type="radio" name="food" value="Pizza">
+    <input type="button" value="확인" onclick="fn_check('food')">
+</form>
+<script>
+    function fn_check(param){
+        let objs = document.getElementsByName(param);
+        for(let i = 0;i<objs.length;i++){
+            //checkbox,radio 에 있는 속성값 선택되면 true
+            if(objs[i].checked){
+                alert("선택된 value는 "+objs[i].value);
+                break;
+            }
+        }
+    };
+</script> 
+</form>
+</body>
+</html>
