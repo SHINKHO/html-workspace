@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>animation example</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        @keyframes bomb {
+            0% {font-size:500%;}
+            50% {font-size: 100%; color:white;}
+            100% {font-size:500%; color : rgb(251, 255, 0);}
+        }
+        h3{animation-name:bomb; animation-duration: 3000ms;
+            animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;}
+    </style>
+</head>
+<body>
+    <h3>꽝</h3>
+    <hr>
+    <p>꽝! 글자가 3초동안 500% -> 100%</p>
+</body>
+</html>
