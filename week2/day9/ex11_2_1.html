@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grid 그리기</title>
+    <style>
+        html,body {
+            height :100%;
+            width : 100%;
+            margin: 0;
+        }
+        .can_container{
+            padding : 25%;
+            height : 100%;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="can_container">
+    <canvas id="myCanvas" width ="420px" height = "420px" style ="background-color: white"></canvas>
+    </div>
+    <script>
+        let canvas = document.getElementById('myCanvas');
+        let context = canvas.getContext('2d');
+
+        //workout : 
+        // 누르면 해당 그리드 색칠하기 + 지뢰 매설해서 지뢰찾기 만들기
+        let coordination_Y = [];
+        let coordination_X = [];
+        let numOfLine= 10;
+        let perHeight = canvas.height/numOfLine;
+        let perWidth = canvas.width/numOfLine;
+        for( let i =0; i<=numOfLine; i++){
+            yloc=canvas.height-(perHeight*i);
+            context.beginPath();
+            context.moveTo(0,yloc);
+            context.lineTo(canvas.width,yloc);
+            
+            //해당 영역의 x좌표 값 저장
+            coordination_Y.push(yloc);
+
+            context.strokeStyle = "black";
+            context.stroke();
+        }
+        for(let i = 0; i<=numOfLine; i++){
+            xloc = canvas.width-(perWidth*i);
+            context.beginPath();
+            context.moveTo(xloc,0);
+            context.lineTo(xloc,canvas.height);
+            context.strokeStyle = "black";
+
+            //해당 영역의 y좌표값 저장
+            coordination_X.push(xloc);
+
+            context.stroke();
+        }
+        console.log("the group of coordintaions of x is : " + coordination_X);
+        console.log("the group of coordintaions of y is : " + coordination_Y);
+        //1.마우스이벤트 감지 시 좌표 검색 
+        function fn_wheel(e){
+            let text="";
+            text+="screen:(" +e.screenX+","+e.screenY+")<br>";
+            text+="client:(" +e.clientX+","+e.clientY+")<br>";
+            text+="offset:(" +e.offsetX+","+e.offsetY+")<br>";
+            text+="x,y :(" +e.x+","+e.y+")<br>";
+            div.innerHTML =text; 
+        }
+        //2.마우스 클릭 이벤트 감지 시 해당 좌표 구간의 (i-1 혹은 i 부터 i 혹은 i+1) 색칠 준비(rect이용)
+
+
+    </script>
+</body>
+</html>

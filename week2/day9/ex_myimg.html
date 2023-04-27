@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사진출력</title>
+    <script>
+        function fn_change(e1){
+            // reader object init when onchange
+            let reader = new FileReader();
+            //onload, invoke fucntion e
+            reader.onload=function(e){
+                
+                let myimg = document.getElementById('img_content');
+                let tag =document.createElement('img');
+                if(myimg.childElementCount>0){
+                    imgsOld=document.getElementsByTagName('img');
+                    for(let o of imgsOld){
+                        myimg.removeChild(o);
+                    }
+                }
+                tag.setAttribute('src',e.target.result);
+                tag.setAttribute('width','300px');
+                myimg.appendChild(tag);
+            }
+            //from the target of event, choose the first one as form of url
+            reader.readAsDataURL(e1.target.files[0]);
+        }
+    </script>
+</head>
+<body>
+    <div id="img_content"></div>
+    <input type="file" id="img" onchange ="fn_change(event)">
+</body>
+</html>

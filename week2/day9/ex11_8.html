@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>텍스트 그리기</title>
+</head>
+<body>
+    <canvas id = "myCanvas" style = "background-color: beige;
+    width: 500px; height : 200px"></canvas>
+    <br>
+    <input id="texter" type = "text" value="" size="30" placeholder="입력하세요" 
+    onkeyup="fn_get(this.value)">
+    
+    <select name="" id="sel">
+    </select>
+    <input type = "color" id="p_color" onchange="fn_color()">
+    
+    <script>
+        let canvas = document.getElementById('myCanvas');
+        let context = canvas.getContext('2d');
+        let col = document.getElementById('p_color');
+        context.font = "50px forte";
+        context.strokeStyle = p_color.value;
+        context.lineWidth = 1;
+        context.textAlign = 'left';
+        function fn_get(text){
+            //지우기 (0,0 좌표를 기준 canvas 사이즈 만큼)
+            context.strokeStyle = p_color.value;
+            context.clearRect(0,0,canvas.width,canvas.height);
+            context.strokeText(text,40,80);
+        }
+        function fn_color(){
+            texter = document.getElementById('texter');
+            context.strokeStyle = p_color.value;
+            fn_get(texter.value);
+        }
+    </script>
+
+</body>
+</html>
