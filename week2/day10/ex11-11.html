@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그림판1</title>
+</head>
+<style>
+    body{background-color: bisque;}
+    
+</style>
+<body>
+    
+    <!--workout : 지우개를 쓰면 지워지는 함수 구현, 지우개 크기도 size에 따라 조절하기 -->
+    <canvas id="myCanvas" width="500px" height="500px"
+    style="background-color: white;"> </canvas>
+    <table border="1">
+        <tr>
+            <td>컬러</td>
+            
+            <td><input type ="color" name="" id="p_color" onchange="fn_change()"></td>
+        </tr>
+        <tr>
+            <td>사이즈</td>
+            
+            <td><input type ="number" min="2" max="30" id="p_size" onchange="fn_change()"></td>
+        </tr>
+        <tr>
+            <td align="center">
+            <input type ="button" value="전체삭제" onclick="fn_all_re()">
+            </td>
+            <td><input type="button" value="지우개" onclick="fn_er(this)"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type ="button" value="이미지 저장하기" onclick="fn_save()"</td>
+        </tr>
+    </table>
+    <script>
+        
+        let canvas = document.getElementById("myCanvas");
+        let ctx = canvas.getContext('2d');
+        
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'rgb(0,0,0,0.5)';
+        ctx.lineCap  = 'round'; //선 끝의 마무리를 부드럽게;
+        let dragging = false;
+        let startX=0; startY=0;
+        function down(e){
+            startX = e.offsetX;
+            startY = e.offsetY;
+            dragging = true;
+        }
+        function up(e){
+            dragging = false;
+        }
+        function draw(curX,curY){
+            ctx.beginPath();
+            ctx.moveTo(startX,startY);
+            ctx.lineTo(curX,curY);
+            ctx.stroke();
+        }
+        function move(e){
+            if(!dragging){
+                return
+            }else{
+                let curX = e.offsetX;curY=e.offsetY;
+                draw(curX,curY);
+                startX = curX;startY=curY;
+            }
+        }
+        function out(e) {
+            dragging = false;
+        }
+        function fn_all_re(){
+            ctx.clearRect(0,0, canvas.width,canvas.height);
+        }
+        function fn_change(){
+            ctx.lineWidth = document.getElementById('p_size').value;
+            ctx.strokeStyle = document.getElementById('p_color').value;
+        }
+        function fn_save(){
+            let img= document.createElement('a');
+            img.download = 'myimage.png';
+            img.href=canvas.toDataURL("image/png");
+            img.click();
+        }
+        function fn_er(obj){
+            name = obj.value;
+            if(name == "지우개"){
+                // if(document.getElementById('p_size').value !=null){
+                //     sizeOfEraser = document.getElementById('p_size').value;
+                // }else{
+                    sizeOfEraser = 'auto'
+                // }
+                canvas.style.cursor = 'url(eraser.cur),'+sizeOfEraser;
+                obj.value = '펜';
+            }else if(name == "펜"){
+                canvas.style.cursor = 'default';
+                obj.value = "지우개";
+            }
+            console.log(obj.value);
+        }
+        //매개변수를 전달해야 할때는 익명함수로 함수를 간접적 호출해야 한다.
+        // 그냥 함수 넣으면 오류 생김.
+        canvas.addEventListener("mousemove",function(e){ move(e) });
+        canvas.addEventListener("mousedown", function(e){ down(e)});
+        canvas.addEventListener("mouseup",function(e){up(e)});
+        canvas.addEventListener("mouseout",function(e){out(e)});
+
+    </script>
+</body>
+</html>

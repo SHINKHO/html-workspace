@@ -12,46 +12,13 @@
 <body>
     <div id="container">
         <h1>참가 신청서</h1>
-        <form action="" onsubmit="return false">
-            <input type="text" id="userName" placeholder="이름을 입력하세요" autocomplete="off" required onkeyup="fn_registerEnter(event)">
+        <form action="">
+            <input type="text" id="userName" placeholder="이름을 입력하세요" autocomplete="off" required>
             <button type="button" onclick="fn_register()">신청</button>
         </form>
         <hr>
         <div id="nameList"></div>
     </div>
-    <script>
-        function fn_register(){
-                //creating div dominant to p
-                newdivision = document.createElement('div');
-                paragraph = document.createElement('p');
-                paragraph.innerHTML = document.getElementById('userName').value;
-    
-                //creaing button having 'x' as .del 
-                button = document.createElement('span');
-                button.innerHTML= "X";
-                button.classList.add('del');
-                button.onclick = function(){
-                    this.parentNode.parentNode.removeChild(this.parentNode);
-                }
-
-                paragraph.appendChild(button);
-                //add paragraph into div as child
-                newdivision.appendChild(paragraph);
-                //add div into nameList child
-                document.getElementById('nameList').appendChild(newdivision);
-                document.getElementById('userName').value = '';
-            
-        }
-        function fn_registerEnter(obj){
-            console.log(obj)
-            console.log(obj.keyCode);
-            if(obj.key == "Enter"){
-                fn_register();
-            }else{
-
-            }
-        }
-    </script>
 </body>
 
 </html>
