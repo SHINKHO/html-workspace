@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배열다루기</title>
+    <style>
+        #content_id p{
+            text-align: center;
+            background-color: azure;
+            border : 2px dotted black;
+            font-family: D2coding;
+            font-weight : 900;
+            font-size: 30px;
+        }
+    </style>
+    <script> 
+    let menus = ['중국집','맛고을','버거킹','다이어트','막걸리&파전','고등어백반','서브웨이'];
+    let content = null;
+    //온로드 전에 객체를 가져올 수 없기 때문에 window.onload를 사용한다.
+    window.onload = function(){
+        content=document.getElementById('content_id');
+        texter = document.getElementById('menus')
+    }
+
+    function fn_del(){
+        let child = content.children;
+        //children - 하위요소 전부
+        while(true){
+            let child = content.children;
+                if(child.length ==0){
+                    break;
+                }else{
+                    content.removeChild(child[0]);
+                }
+        }
+        console.log(child);
+    }
+    function fn_print(){
+        fn_del();
+        console.log(menus);
+        let elem = document.createElement('p');
+
+        for(e of menus){
+            elem = document.createElement('p')
+            elem.innerHTML = e;
+            content.appendChild(elem);
+        }
+    }
+    function fn_add(){
+        //push 배열 끝에 아이템 추가
+        if(texter.value !=''){
+        menus.push(texter.value);
+        }
+        console.log(menus);
+    }
+    function fn_pop(){
+        //뒤에 삭제
+        menus.pop();
+        fn_print();
+    }
+    function fn_shift(){
+        //앞에 삭제
+        menus.shift();
+        fn_print();
+    }
+    function fn_one_del(){
+        removelem = menus.indexOf(texter.value);
+        if(removelem==-1){
+            alert("그런 값이 없습니다.");
+        }else{
+            menus.splice(removelem,1);
+            fn_print();
+        }
+    }
+    function fn_two_del(){
+        nothing = true;    
+        for(let i = 0; i<menus.length;i++){
+            console.log(menus[i]+" and "+texter.value+" ?"+menus[i].includes(texter.vlaue));
+            if(menus[i].includes(texter.value)&&texter.value!=''){
+                nothing =false;
+                menus.splice(i,1);
+                break;
+            }
+        }
+        fn_print();
+        if(nothing)alert("그런 값이 없습니다.");
+    }
+    </script>
+</head>
+<body>
+    <input type ="text" id="menus">
+    <!-- 추가 클릭시 input value추가 -->
+    <button onclick = "fn_add()"> 추가</button>
+    <button onclick = "fn_print()">조회</button>
+    <button onclick = "fn_del()">화면삭제</button>
+    <button onclick = "fn_pop()">뒤에 삭제</button>
+    <button onclick = "fn_shift()">앞에 삭제</button>
+    <button onclick = "fn_one_del()">하나만 삭제</button>
+    <button onclick = "fn_two_del()">일부라도 같으면 삭제</button>
+
+    <div id="content_id"></div>
+</body>
+</html>

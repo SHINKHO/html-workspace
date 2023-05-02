@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>오늘은 뭘 먹을까?</h3>
+    <hr>
+    <script>
+        function randomInteger(min,max){
+            return Math.floor(Math.random()*(max-min))+min;
+        }
+
+        let menus = ['중국집','맛고을','버거킹','다이어트','막걸리&파전','고등어백반','서브웨이'];
+        let classMate = ['강지혜','고동욱','김대일','김청아','김태윤','김현곤','류서영','박준하','박진영','박창연'
+                         ,'박혜라','배준호','백민기','신경호','유동윤','윤종현','이자영','장유정','정현진','주예슬'
+                         ,'최성복','홍민경'];
+        // 점심식사 팀
+        let objTeam = {};
+        console.log("length of CM  : "+classMate.length);
+        max=5;min=2;
+        checkNums =0;
+        
+        for(e of menus){
+            objTeam[e] = [];
+        }
+        console.log(objTeam);
+        distributor = []
+        while(distributor.length)
+        classMate.splice(randomInteger(0,classMate.length));
+
+
+
+            // while(true){
+            //     if(menus.length>0){
+            //         let li = [];
+                    
+            //         if(classMate.length>7){
+            //             nopeep = randomInteger(min,max);
+            //             console.log("no of peep is found as "+nopeep);
+            //         }else{
+            //             nopeep = randomInteger(min,Math.ceil(classMate.length/menus.length));
+            //             console.log("no of peep is lacking"+nopeep)
+            //         }
+            //         checkNums +=nopeep;
+
+                    
+            //         for(let i = 0;i<nopeep;i++){
+            //             idx = randomInteger(0,classMate.length);
+            //             li.push(classMate.splice(idx,1));
+            //         }
+                    
+            //         console.log("Team members : " +li);
+                    
+            //         objTeam[(menus.splice(randomInteger(0,menus.length),1))] = li;
+            //     }else{
+            //         if(classMate.length < 3){
+            //             objTeam[menus.splice(0,1)]=classMate;
+            //         }else{
+            //             for(let i in objTeam){
+            //                 if(classMate.length>0){
+            //                     objTeam[i].push(classMate.pop);
+            //                 }
+            //             } 
+            //             break;
+            //         }
+            //         break;
+            //     }
+            // }
+
+        console.log(checkNums);
+        document.write("<h1> 오늘의 점심 메뉴 팀<h1><br>")
+        for(let i in objTeam){
+            
+            document.write("<h3>"+i+ "팀은 :" +objTeam[i]+" </h3>");
+        }
+        document.write("<button onclick='location.reload();'>다시 추첨</button>");
+    </script>
+</body>
+</html>
