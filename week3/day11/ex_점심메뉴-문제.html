@@ -20,18 +20,28 @@
                          ,'최성복','홍민경'];
         // 점심식사 팀
         let objTeam = {};
-        console.log("length of CM  : "+classMate.length);
-        max=5;min=2;
-        checkNums =0;
-        
-        for(e of menus){
-            objTeam[e] = [];
-        }
-        console.log(objTeam);
-        distributor = []
-        while(distributor.length)
-        classMate.splice(randomInteger(0,classMate.length));
+        //{'맥날':['펭수','길동']}
+        /*문제 : 인원 랜덤 , 메뉴 랜덤으로 할당.
+                1.학생인원을 랜덤하게 선택
+                2.메뉴를 랜덤하게 선택
+                3.메뉴를 기준으로 해당 학생을 할당.
 
+        */
+        let arr;
+        while(classMAte.length !=0 ){
+            //랜덤 함수 실행 cls_idx 는 
+            let cls_idx = Math.floor(Math.random()*classMate.length);
+            let menu_idx = Math.floor(Math.random*menus.length);
+            //랜덤하게 뽑은 메뉴명
+            let menu = menus[menu_idx];
+            arr= objTeam[menu] == undefined ? [] : objectTeam[menu]; // 초기 상태라면 undefined이기 때문에 빈 배열로 초기화
+                                                    //초기 상태가 아니라면 objectTeam[menu]의 reference 를 arr에 불러옴
+
+            //최대 최소값을 설정하고 싶다면 아래 구문을 if문으로 length 를 검색해서 돌리도록 한다.
+            arr.push(classMate[cls_idx]); // classmate 로부터 랜덤하게 pick 된 값을 arr에 대입
+            classMate.splice(cls_idx);//  동일값을 classmate에서 제거
+            objTeam[menu] = arr;    // ojbTeam[menu] 에 해당 값을 넣음.
+        }
 
 
             // while(true){
