@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX</title>
+    <!-- Asynchronous Javascript XML 비동기 자바스크립트 XML
+        초기 XML을 많이 사용하여서 XML, 현재는 JSON으로 많이 사용
+        비동기 통신을 위한 대행 객체 필요
+        XMLHttpRequest(통신객체)
+    -->
+    <style>
+        #coin_list {
+            border : 1px solid;
+            text-align : center;
+            font-family: d2coding;
+        }
+        table tr:first-child{
+            font-weight: 800;
+            background-color: black;
+            color : white;
+        }
+        table tr:nth-child(2n){
+            background: yellow;
+        }
+        #right_table{
+            right: 20%;
+            top:   10%;
+            position:  fixed;
+        }
+        #left_table{
+            float: left;
+            
+        }
+    </style>
+    <script>
+        let v_ajax = new XMLHttpRequest();
+        let v_ajax_detail = new XMLHttpRequest();
+        function fn_get(){
+            v_ajax.open('GET',"https://api.upbit.com/v1/market/all",true);
+            v_ajax.send();
+        }
+        function fn_get_detail(mark){
+            v_ajax_detail.open('GET',"https://api.upbit.com/v1/ticker?markets="+mark,true);
+            v_ajax_detail.send();
+
+        }
+        function fn_detail(obj){
+            fn_get_detail(obj.innerHTML);
+        }
+        v_ajax_detail.onreadystatechange = function(){
+            if(v_ajax_detail.readyState==4 && v_ajax_detail.status ==200){
+                let upbit_coin_ticker = JSON.parse(v_ajax_detail.responseText);
+                console.log(upbit_coin_ticker);
+                let str;
+                str = "<tr><td>코드</td><td>종가</td></tr>"
+                str+= "<tr><td>"+upbit_coin_ticker[0].market+"</td><td>"
+                    +upbit_coin_ticker[0].prev_closing_price+"</td></tr>"
+                document.getElementById('coin_detail').innerHTML = str;
+            }
+        }
+        //응답 리스너
+        v_ajax.onreadystatechange = function(){
+            // readyState : 4 데이터를 받았다는 코드
+            // status : 200 정상응답 코드
+            if(v_ajax.readyState==4 && v_ajax.status == 200){
+                console.log(v_ajax);
+                console.log(v_ajax.responseText);
+                let upbit_code_list = JSON.parse(v_ajax.responseText);
+                console.log(upbit_code_list);
+                //table coin_list에 응답받은 데이터를 테이블로 출력하시오
+                //tr,td를 활용하여
+                // let coin_table = document.getElementById('coin_list');
+                // coin_table.innerHTML=
+                // "<tr><td>한글명</td><td>영문명</td><td>코드</td><tr>"
+                let str;
+                str = "<tr><td>한글명</td><td>영문명</td><td>코드</td></tr>"
+                for(let i in upbit_code_list){
+                    str +="<tr>";
+                    str +="<td>" + upbit_code_list[i].korean_name +"</td>";
+                    str +="<td>" + upbit_code_list[i].english_name +"</td>";
+                    str +="<td onclick='fn_detail(this)'>" + upbit_code_list[i]['market'] +"</td>";
+                    str +="</tr>";
+                }
+                document.getElementById('coin_list').innerHTML = str;
+            }
+        }
+    </script>
+</head>
+<body>
+    <button type = "button" onclick="fn_get()">가져오기</button>
+    <div class="row">
+        <div id="left_table">
+            <table id="coin_list"></table>
+        </div>
+        <div id="right_table">
+            <table id="coin_detail"></table>
+        </div>
+    </div>
+</body>
+</html>
