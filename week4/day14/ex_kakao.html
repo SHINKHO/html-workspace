@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kakao daum 검색</title>
+    <script>
+        let url = "https://dapi.kakao.com/v2/search/web?sort=accuracy&page=1&size=10&query=";
+        let headers = {"Authorization ":"25ce821cc9fbddefade5ab5cf0d327c7"}; //rest api key
+        let httpRequest = new XMLHttpRequest();
+
+        function fn_ajax(){
+            //검색 클릭시 함수 호출되도록
+            let q = document.getElementById('q').value;
+            // alert(query);
+            httpRequest.onreadystatechange = function(){
+                if(httpRequest.readyState == 4 && httpRequest.status == 200){
+                    console.log(httpRequest.responseText);
+                    let obj = JSON.parse(httpRequest.responseText);
+                    let arr = obj.documents;
+                    let str="";
+                    for(let i in arr){
+                        str +="<p>";
+                        str +='<a href ="'+arr[i]['url']+'">';
+                        str += arr[i]['title'];
+                        str += '</a>';
+                        str +="<span>";
+                        console.log(arr[i]['contents']);
+                        str += arr[i]['contents'];
+                        str +="</span>";
+                        str += '</p>';
+                    }
+                    document.getElementById('search-results').innerHTML = str;
+                }
+            }
+            httpRequest.open('GET',url+q);
+            httpRequest.setRequestHeader("Content-type","application/json");
+            httpRequest.setRequestHeader("Authorization","KakaoAK 25ce821cc9fbddefade5ab5cf0d327c7");
+            httpRequest.send();
+        }
+    </script>
+</head>
+<body>
+    검색어 : <input type ="text" id="q"><input type="button" value="검색" onclick="fn_ajax()">
+    <div id="search-results"></div>
+</body>

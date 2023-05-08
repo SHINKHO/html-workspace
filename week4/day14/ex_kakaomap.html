@@ -1,0 +1,40 @@
+
+<!--
+    시작하기에 앞서 developers.kakao.com/console/app/ 에서 허용 아이피 주소와 
+    플랫폼에서 로컬호스트 : 포트번호(5500) 를 먼저 설정하자
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>지도 생성하기</title>
+</head>
+<body>
+<!---- 지도를 표시할 div 입니다 -->
+ <div id="map" style = "width:100%;height:350px;"></div> 
+ 
+ <script type = "text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=665aedd6764612c5c55706e884f04b9f"></script>
+<script>
+    if(!navigator.geolocation){
+        alert("지원하지 않음");
+    } else {
+        navigator.geolocation.getCurrentPosition(found);
+    }
+
+    function found(position) {
+        let lat = position.coords.latitude; // 위도
+        let lon = position.coords.longitude; // 경도
+        alert(lat,lon);
+
+        var mapContainer = document.getElementById('map'),
+            mapOption = {
+                center: new kakao.maps.LatLng(lat, lon),
+                level: 3
+            };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+        alert(lat,lon);
+    }
+</script>
+</body>
+</html>
