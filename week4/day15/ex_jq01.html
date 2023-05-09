@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 파일이라면< script src = "jquery file path".js> -->
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script>
+        /* jquery의 $는 이름이 $인 객체
+            jquerry는 document element를 선택하여 작업하기 때문에
+            window onload상태에서 작동되도록 코드를 작성(아래와 같이)
+                **&(document).ready( //내용);
+            css 태그와 비슷하게 페이지 내부의 전부를 선택한다
+        */
+        //jquery 기본 사용법 1 
+        $(document).ready(function(){
+            $("h2").click(function(){
+                $(this).hide(); // 안보임.
+            });
+            $("input").focus(function(){
+                $(this).css('background-color','yellow');
+            });
+            $("input").blur(function(){
+                $(this).css('background-color','white');
+            });
+            $(document).mousemove(function(e){
+                $("#log").text("e.pageX:"+e.pageX + "e.pageY:"+e.pageY);
+            });
+        });
+        //jquery 기본 사용법
+        $(function(){
+            
+        });
+    </script>
+    <title>Document</title>
+</head>
+<body>
+    <h2>클릭하면 사라집니다</h2>
+    아이디 : <input type = "text">
+    패스워드 : <input type ="password">
+    <p id="log"></p>
+</body>
+</html>

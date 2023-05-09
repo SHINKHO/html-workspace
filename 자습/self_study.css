@@ -1,0 +1,15 @@
+ @charset "UTF8";
+ body{
+    font-family: d2coding;
+ }
+ dt{
+    font-weight: 800;
+    font-size : 200px;
+ }
+ dt::first-letter{
+    color:red;
+ }
+ dl{
+    font-weight:10;
+    font-size:40px
+ }
