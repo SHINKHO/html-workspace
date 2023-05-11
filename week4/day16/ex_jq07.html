@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script>
+        picno=1;
+        $(document).ready(function(){
+            picno=1;
+            $('button').click(function(){
+                if(picno>4)picno=1;
+                // alert($('img').attr('src'));
+                $('img').fadeOut('fast',function(){
+                    $('img').attr('src','../day15/pic'+(picno++)+'.jpeg');
+                }).fadeIn('slow');
+            });
+        });
+    </script>
+</head>
+<body>
+    <img src="../day15/pic1.jpeg" width="150px" alt="">
+    <button>attr</button>
+</body>
+</html>
