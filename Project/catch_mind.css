@@ -1,15 +1,18 @@
-.mdl-layout-title{
-    font-family : d2Coding;
+body{
+    margin : 0;
 }
-.body-loginform #center{
-    text-align: center;
+
+.navbar { 
+    background-color: azure;
+    padding : 10px;
+    display: grid;
+    grid-template-columns: 0.5fr 10fr 120px;
 }
-.body-loginform #leftside{
-    background-color: rgb(0, 0, 0,30%);
+header .title {
+    text-align: center
 }
-.body-registerform #center{
-    text-align : center;
-}
-.body-loginform #rightside{
-    background-color: rgb(0,0,0,30%);
+
+.navbar .menu{
+    display : grid;
+    grid-template-columns: 1fr 1fr;
 }
