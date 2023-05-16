@@ -6,10 +6,12 @@
 */
 
 let is_login=false;
+
 const images_folder = "./images/";
 const images_name="pic";
 const images_number = 4;
 const images_ext = ".jpeg"
+
 
 $(document).ready(function(){
 
@@ -21,11 +23,43 @@ $(document).ready(function(){
   }
 
   $("#log-in").click(function(){
-    if(is_login){
-      log_out();
-    }else{
-      log_in();
-    }
+    // if(is_login){
+    //   log_out();
+    // }else{
+    //   log_in();
+    // }
+    $("#log-in-popup").css("display","block");
+    $("#log-in-popup").hover(
+      function(){
+
+      }
+      ,
+      function(){
+        $("#log-in-popup").css("display","none");
+      }
+    );
+
+    
+  });
+
+  $("#register").click(function(){
+    // if(is_login){
+    //   log_out();
+    // }else{
+    //   log_in();
+    // }
+    $("#register-popup").css("display","block");
+    $("#register-popup").hover(
+      function(){
+
+      }
+      ,
+      function(){
+        $("#register-popup").css("display","none");
+      }
+    );
+
+    
   });
 
   $('#carousel').ready(
