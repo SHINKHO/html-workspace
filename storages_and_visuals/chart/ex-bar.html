@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .containerX{
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+    .containerY{
+        display: grid;
+        grid-template-rows:1fr 2fr 1fr;
+    }
+</style>
+
+<body>
+    <div class="containerX">
+        <div class="containerY">
+        </div>
+        <div class="containerY">
+            <div></div>
+            <div>
+                <canvas id="myChart"></canvas>
+            </div>
+            <div></div>
+        </div>
+        <div class="containerY">
+        </div>
+    </div>
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          
+          <script>
+            const ctx = document.getElementById('myChart');
+            let config= {};
+            new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1,
+                backgroundColor : ['Red','Blue','Yellow','Green','Purple','Oragne']
+                }]
+            },
+            options: {
+                scales: {
+                y: {
+                    beginAtZero: true
+                }
+                }
+            }
+            });
+
+            let myChart= new Chart(ctx, config);
+            function fn_change(){
+                config.data.datasets[0].data = [50,1,10,4,20,40];
+            }
+          </script>
+    
+</body>
+</html>

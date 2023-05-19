@@ -12,95 +12,136 @@
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
     <script>
+                        //EI    SN    TF    JP
         let type_info = ['에너지방향','인식','판단','계획성'];
+        let keys;
+        // 유형별 카운팅
+        let mbti_cnt = {};
+        // 조합 
+        let mbti_type = [];
+
         $(document).ready(function(){
             $.ajax({
                  url :'MBTI_Q2.csv'
                 ,success : function(res){
                     let array = fn_readCSV(res);
                     console.log(array);
-                    let keys = Object.keys(array[0]);
+                    keys = Object.keys(array[0]);
                     let obj = {};
                     for(let i = 0; i < keys.length; i ++){
                         let arr = [];
                         for(d in array){
                             arr.push(array[d][keys[i]]);
                         }
+                        mbti_cnt[keys[i]] = 0;
                         obj[keys[i]] = arr;
                     }
+                    console.log('mbti_cnt:', mbti_cnt);
                     console.log(keys);
                     console.log(obj);
-                    for(let i = 0 ; i < type_info.length; i++){
-                        console.log(i*2,i*2+1);
-                        let str = fn_html(type_info[i],keys[i*2],obj[keys[i*2]],keys[i*2+1],obj[keys[i*2+1]]);
-                        $('#form_id').append(str);
+                    for(let i = 0; i < type_info.length; i ++){
+                        // console.log(i*2, i*2+1);
+                        let str = fn_html(type_info[i], keys[i*2], obj[keys[i*2]], keys[i*2+1], obj[keys[i*2+1]]);
+                        $("#form_id").append(str);
                     }
                 }
             });
 
             $('#btn1').click(function(){
-                // $('#exampleModalLong').modal('show');
-                let formElems = $('#form_form').serializeArray();
-                console.log(formElems);
-                //                    *2 vs *2+1                      
-                //                  0           1           2           3
-                //              0      1     2     3     4     5     6     7 
-                let result_ff= {'E':0,'I':0,'S':0,'N':0,'T':0,'F':0,'J':0,'P':0};
-                let result_keys = Object.keys(result_ff);
-                console.log(result_keys);
-                for(let formElem of formElems){
-                    console.log(formElem);
-                    result_ff[formElem.value] +=1;
-                }
-                console.log(result_ff);
-
-                let result_ff_card = ['Neutral','Neutral','Neutral','Neutral'];
-                //comapring two by two
-                for(let i=0;i<result_keys.length / 2;i++){
-                    let prev =result_ff[result_keys[i*2]];
-                    let post =result_ff[result_keys[i*2+1]];
-
-                    if(prev>post){
-                        result_ff_card[i] = result_keys[i*2];
-                    }else if(prev<post){
-                        result_ff_card[i] = result_keys[i*2+1];
-                    }else{
+                if(fn_check()){
+                    for(let i = 0; i < mbti_type.length; i ++){
+                        fn_cnt(i, mbti_type[i]); // 0 EI
                     }
-                    console.log("Previous:",prev);
-                    console.log("Post", post);
+                    $("#btn2").show();
+                }else{
+                   alert("둘중 하나는 선택해야 합니다.^^") ;
                 }
-                console.log(result_ff_card);
-                //putting them in the cardboard
-                for(let i = 0; i < result_ff_card.length; i++){
-                    $("#result" + (i+1)).val(result_ff_card[i]);
-                }
-
             }); 
+            $("#btn2").click(function(){
+                let result_mbti = ''
+                $('#result input').each(function(i, v){
+                    result_mbti +=$(v).val();
+                });
+                $.ajax({
+                     type: 'get'
+                    ,url : 'MBTI_A2.csv'
+                    ,success : function(res){
+                        let data = fn_readCSV(res);
+                        $(".modal-body").empty();
+                        $(".modal-title").text(result_mbti);
+                        for(let v of data){
+                            if(v[result_mbti] !=undefined){
+                                $(".modal-body").append("<p>"+v[result_mbti]+"</p>");
+                            }
+                        }
+                        $('#exampleModalLong').modal('show');
+                    }
+                });
+            }); 
+
+
+            function fn_cnt(num , type){
+                if(mbti_cnt[type[0]] > mbti_cnt[type[1]]){
+                    $('#result' + (num+1)).val(type[0]);
+                }else{
+                    $('#result' + (num+1)).val(type[1]);
+                }
+            }
+
+            function fn_check(){
+                let flag = true;
+                let nm_obj = {};
+                // radio name 가져오기 
+                $("#form_id input").each(function(i, v){
+                    nm_obj[$(v).attr('name')] = 0;
+                });
+                $("#form_id input").each(function(i, v){
+                    if($(v).is(":checked")){
+                        mbti_cnt[$(v).val()] += 1;
+                        nm_obj[$(v).attr('name')] +=1;
+                    }
+                });
+                console.log('nm_obj',nm_obj);
+                console.log('cnt',mbti_cnt);
+                for(let i in nm_obj){
+                    // 선택 안한 input name 쪽에 포커스 주기 
+                    if(nm_obj[i] == 0){
+                        $('input[name='+i+']').eq(0).focus();
+                        flag = false;
+                        break;
+                    }
+                }
+                return flag;
+
+            }
         });
 
-        function fn_html(info,type1,data1,type2,data2){
-            console.log("====================================");
-            console.log(info,type1,data1,type2,data2);
-            let html="";
-            let type = type1+type2;
-            html += '<label class="fs-3 p-2">'+info+'</label>';
+
+
+        function fn_html(info, type1, data1, type2, data2){
+            console.log("======================================");
+            console.log(info, type1, data1, type2, data2);
+            let html ="";
+            let type = type1+type2;  
+            mbti_type.push(type);
+            html += '<label class="fs-3 p-2">' + info +'</label>';
             html += '<div class="mb-3" id="'+type+'">';
-            for(let i = 0; i<data1.length;i++){
+            for(let i = 0; i < data1.length; i ++){
                 html +='<div class="form-check">';
-                html +='<input class="form-check-input" type="radio" name="'+(type+i)+'"id="'+(type1+i)+'" value="'+type1+'" >';
-                html +='<label class="form-check-label" for="'+(type1+i)+'">'+data1[i]+'</label>';
+                html +='<input class="form-check-input" type="radio" name="'+(type+i)+'" id="'+(type1+i)+'" value="'+type1+'" >';
+                html +='<label class="form-check-label" for="'+(type1 +i)+'" > '+data1[i] + '</label>';
                 html +='</div>';
-                
+
                 html +='<div class="form-check">';
-                html +='<input class="form-check-input" type="radio" name="'+(type+i)+'"id="'+(type2+i)+'" value="'+type2+'" >';
-                html +='<label class="form-check-label" for="'+(type2+i)+'">'+data2[i]+'</label>';
+                html +='<input class="form-check-input" type="radio" name="'+(type+i)+'" id="'+(type2+i)+'" value="'+type2+'" >';
+                html +='<label class="form-check-label" for="'+(type2 +i)+'" > '+data2[i] + '</label>';
                 html +='</div>';
                 html +='<hr>';
             }
-            html+='</div>';
+            html += '</div>';
             return html;
         }
-
+        
         function fn_readCSV(d){
             let rows = d.split('\r\n');
             let arr = [];
@@ -140,10 +181,8 @@
                     <div class="tab-content">
                         <div class="row g-12">
                             <!-- 설문문항 -->
-                            <form id="form_form">
                             <div class="col-sm-12" id="form_id">
                             </div>
-                            </form>
                         </div>
                     </div>
                 </div>
