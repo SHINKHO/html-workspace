@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <style>
+        .expand-width {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="col-md-10">
+                <table class="table table-hover" id="table_id">
+                    <tbody class="page-data"></tbody>
+                </table>
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item page-list">
+                            <a href="#" class="page-link">&laquo;</a>
+                        </li>
+                        <li class="page-item">
+                            <a href="#" class="page-link">&raquo;</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+    <script>
+        //현재 페이지
+        let currentPage=1;
+        // 출력 행수 
+        let itemPerPage = 10;
+        //페이징 번호 수 
+        let buttonPerPage = 10;
+
+        function fn_loadData(page){
+            $.get('https://api.upbit.com/v1/market/all',function(data){
+                console.log(data);
+                $('.page-data').empty();
+                let start=(page-1)*itemPerPage;
+                let end = start + itemPerPage;
+                for(let i =start; i<end ; i++){
+                    if(i>=data.length){
+                        break;
+                    }
+                    let str = '';
+                    str +='<tr><td>';
+                    str +=(i+1) +'</td>';
+                    str +='<td>' +data[i].market +'</td>';
+                    str +='<td>' +data[i].english_name +'</td>';
+                    str +='<td>' +data[i].korean_name +'</td>';
+                    str +='</tr>';
+                    $('.page-data').append(str);
+                }
+                let totalPages = Math.ceil(data.length / itemPerPage);
+                currentPage = page;
+                fn_pageButtons(totalPages);
+            });
+        }
+        function fn_pageButtons(totalPages){
+            $('.list-item').empty();
+            //시작 페이지는 현재 페이지를 중심으로 하되 첫 번째 이전으로 확장되지 않도록
+            let startPage = Math.max(1,currentPage -Math.floor(buttonPerPage / 2));
+            //총 페이지 수를 초과하지 않도록
+            let endPage = Math.min(totalPages,startPage +buttonPerPage -1);
+            //마지막 페이지가 총 페이지를 초과하지 않도록
+            startPage = Math.max(1,endPage-buttonPerPage +1);
+        
+            let str = "" ;
+            for(let i = startPage; i<=endPage ; i++){
+                str += '<li onclick= "fn_loadData('+i+')" class="page-item list-item" id="page_'+i+'"><a class="page-link">'+i+'</a></li>';
+            }
+            $('.page-list').after(str);
+            // In case of bootstrap, Styles are loaded via classes, Dev can treat the class dynamically by add/remove classes
+            $('.list-item').removeClass('active');
+            $('#page_'+currentPage).addClass('active');
+        }
+        $(document).ready(function(){
+                fn_loadData(currentPage);
+        });
+    </script>
+    
+</body>
+</html>
