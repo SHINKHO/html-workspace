@@ -1,0 +1,10 @@
+sudo unzip instantclient-basic-linux-21.3.0.0.0.zip
+sudo mkdir -p /opt/oracle
+sudo mv instantclient_21_3/ /opt/oracle/
+sudo xed ~/.bashrc
+export LD_LIBRARY_PATH=/opt/oracle/instantclient_21_3:$LD_LIBRARY_PATH
+sudo sh -c "echo /opt/oracle/instantclient_21_3 > /etc/ld.so.conf.d/oracle-instantclient.conf"
+sudo ldconfig
+
+
+
