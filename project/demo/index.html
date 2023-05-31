@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery-3.7.0.js"></script>
+
+    <style>
+        body{
+            overflow: scroll;
+        }
+        .container{
+            display : grid;
+            grid-template-columns: repeat(5,1fr 1fr);
+            gap: 10px;
+            left: 100px;
+            position : absolute;
+        }
+        .container > div{
+
+            width : 200px;
+            height : 200px;
+            background-color : rgb(255, 255, 100);
+            border : 1px solid black;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            $("body").on("mouseover",function(e){
+                let mouse_x_coordinate = e.pageX;
+                let mouse_y_coordinate = e.pageY;
+                $("#mouseprinter").text("mouse position:" +mouse_x_coordinate + "," + mouse_y_coordinate);
+            });
+            $("body").on("mousewheel",function(e){
+                moveDiv($('.container:first'));
+            });
+        });
+
+        function moveDiv(targetDiv){
+            targetDive.style.
+            let currentX = targetDiv.style.left;
+            console.log('currentXpx : ' +currentX);
+            let currentX_pure = currentX.replace(/\D+/g, "");
+            console.log('pureXpx:'+currentX_pure);
+        }
+    </script> 
+</head>
+<body>
+    <p id="mouseprinter"></p>
+    <div class="container">
+        <div>
+            a
+        </div>
+        <div>
+            b
+        </div>
+        <div>
+            c
+        </div>
+        <div>
+            d
+        </div>
+        <div>
+            e
+        </div>
+        <div>
+            f
+        </div>
+        <div>
+            g
+        </div>
+        <div>
+            f
+        </div>
+    </div>
+</body>
+</html>
