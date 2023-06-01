@@ -33,6 +33,7 @@ function moveDiv(targetDiv, num) {
     let currentX_new = currentX + num + "px";
     targetDiv.css("left", currentX_new);
     let firstborn = $(targetDiv).children().first();
+    
     if($(targetDiv).children().first().offset)
 }
 
