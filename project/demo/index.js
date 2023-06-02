@@ -1,4 +1,3 @@
-
 const panelProperty = {
     width: "80%",
 };
@@ -13,13 +12,19 @@ $(document).ready(function () {
         );
     });
     $("body").on("mousewheel", function (e) {
+        let amount = 0;
         if (e.originalEvent.deltaY > 0 || e.originalEvent.deltaX > 0) {
-            moveDiv(movingdiv, -20);
+            amount = -20;
         } else {
-            moveDiv(movingdiv, 20);
+            amount = 20
         }
-        // hideDiv(movingdiv.children().first());
-        console.log(movingdiv.children().first().offset().left);
+        
+        moveDiv(movingdiv, amount);
+        if(movingdiv.first().offset().left+element_lf.outerWidth<0){
+            removeLeftmostElement(movingdiv);
+            movingdiv.css("left",0);
+        }
+        
     });
 });
 
@@ -31,13 +36,19 @@ function moveDiv(targetDiv, num) {
 
     let currentX = $(targetDiv).position().left;
     let currentX_new = currentX + num + "px";
-    targetDiv.css("left", currentX_new);
-    let firstborn = $(targetDiv).children().first();
-    
-    if($(targetDiv).children().first().offset)
+
+    $(targetDiv).css("left", currentX_new);
 }
 
-function hideDiv(targetDiv) {
-    const scroller = $("#scroller");
-    const targetRight = $(targetDiv).position().left + $(targetDiv).outerWidth();
+function removeLeftmostElement(targetDiv) {
+    let container = targetDiv;
+    let element_lf = container.children('.item').first();
+    let elf_right = element_lf.offset().left + element_lf.outerWidth();
+    
+    console.log("leftmost right : "+elf_right);
+    let containerLeft = container.position().left;
+    console.log("container's left : "+containerLeft);
+    leftmostElement.appendTo(targetDiv);
+    leftmostElement.remove(); // Remove the leftmost element
+
 }
