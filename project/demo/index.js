@@ -4,6 +4,7 @@ const panelProperty = {
 
 $(document).ready(function () {
     let movingdiv = $("#scroller");
+    movingdiv.position().left = 0;
     $("body").on("mouseover", function (e) {
         let mouse_x_coordinate = e.pageX;
         let mouse_y_coordinate = e.pageY;
@@ -11,22 +12,33 @@ $(document).ready(function () {
             "mouse position:" + mouse_x_coordinate + "," + mouse_y_coordinate
         );
     });
+    
+    /**
     $("body").on("mousewheel", function (e) {
-        let amount = 0;
+        let amount = 0;/
         if (e.originalEvent.deltaY > 0 || e.originalEvent.deltaX > 0) {
-            amount = -20;
+            amount = -80;
         } else {
-            amount = 20
+            amount = -80;
         }
-        
         moveDiv(movingdiv, amount);
-        if(movingdiv.first().offset().left+element_lf.outerWidth<0){
-            removeLeftmostElement(movingdiv);
+        let element_lf = movingdiv.children().first()
+        console.log('element_lf.left width',element_lf.offset().left , element_lf.width());
+        
+        if(element_lf.offset().left+element_lf.width()<0){
+            moveLeftmostElement(movingdiv);
             movingdiv.css("left",0);
         }
-        
+    });
+    */
+    $("#button_to_left").on("click",function(e){
+        moveRightmostElement(movingdiv);
+    });
+    $("#button_to_right").on("click",function(e){
+        moveLeftmostElement(movingdiv);
     });
 });
+
 
 function moveDiv(targetDiv, num) {
     if (!targetDiv) {
@@ -40,15 +52,15 @@ function moveDiv(targetDiv, num) {
     $(targetDiv).css("left", currentX_new);
 }
 
-function removeLeftmostElement(targetDiv) {
+function moveLeftmostElement(targetDiv) {
     let container = targetDiv;
     let element_lf = container.children('.item').first();
-    let elf_right = element_lf.offset().left + element_lf.outerWidth();
-    
-    console.log("leftmost right : "+elf_right);
-    let containerLeft = container.position().left;
-    console.log("container's left : "+containerLeft);
-    leftmostElement.appendTo(targetDiv);
-    leftmostElement.remove(); // Remove the leftmost element
+    container.append(element_lf);
+}
 
+function moveRightmostElement (targetDiv){
+    let container = targetDiv;
+    let element_rf = container.children('.item').last();
+    container.prepend(element_rf);
+    console.log("movebutton hit!");
 }
