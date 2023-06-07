@@ -7,24 +7,107 @@
     <title>Document</title>
     <script src="jquery-3.7.0.js"></script>
     <script src="index.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 
     <link rel="stylesheet" href="index.css">
+    <style>
+
+      </style>
 </head>
+<script> 
+    $(document).ready(function(){
+        let socket= io(); 
+        let form_chat = document.getElementById('form_chat');
+        let input = document.getElementById('input_chat');
+        console.log('form,input : ',form,',',input);
+
+        form_chat.addEventListener('submit', function(e){
+            e.preventDefault();
+            if(input.value){
+                socket.emit('chat message',input.value);
+                input.value='';
+            }
+        });
+
+        socket.on('chat message',function(msg){
+            let item = document.createElement('li');
+            item.textContent = msg;
+            messages.appendChild(item);
+            window.scrollTo(0,document.body.scrollHeight);
+        });
+
+    });
+
+</script>
 <body>
+    <div id="log_sign_in">
+        <form id="form_login" action="/login" method="post">
+            <div>
+            <h3>Log In</h3>
+
+            </div>
+            <div>
+                <label for="user_id">User Id</label>
+                <input type="text" name="user_id"/>
+            </div>
+            <div>
+                <label for="user_pw">Password</label>
+                <input type="password" name="user_pw"/>
+            </div>
+            <div>
+                <button>Login</button>
+            </div>
+        </form>
+    </div>
     <p id="mouseprinter"></p>
     <div class = "button_division" id="button_to_left"></div>
-    <div id="left_empty_detector"></div>
     <div class="container" id="scroller">
-        <div class="item grid_container" >
-            <h1>
-                screen1
-            </h1>
-            <li>
+        <div class="item grid_container_row" >
+            <!-- topgrid : timer, drawer, letters-->
+            <div class="grid_component grid_container_col">
+                <div class="grid_component" id="timer">
 
-            </li>
-            <li>
-                
-            </li>
+                </div>
+                <div class="grid_component" id="letter">
+
+                </div>
+                <div class="grid_component" id="drwawer">
+
+                </div>
+            </div>
+            <!--midgrid : canvas and tools-->
+            <div class="grid_component grid_container_col">
+                <div class="grid_component" id="tools_L">
+
+                </div>
+                <div class="grid_component" id="tools_R">
+
+                </div>
+                <ul>canvas goes here</ul>
+                <canvas></canvas>
+            </div>
+            <!--lowgrid : user Info -->
+            <div class="grid_component grid_container_col">
+                <div class="grid_component" id="userName">
+                </div>
+                <div class="grid_component" id="userpic">
+
+                </div>
+                <div class="grid_component" id="userHp">
+
+                </div>
+            </div>
+            <!--tailgrid : chatting content-->
+            <div class="grid_component">
+
+            </div>
+            <!--endgrid : chatting inputs-->
+            <div class ="grid_component">
+                <ul id="messages"></ul>
+                <form id="form_chat" action="">
+                  <input id="input_chat" autocomplete="off" /><button>Send</button>
+                </form>
+            </div>
         </div>
         <div class="item grid_container">
             <h1>기록창</h1>
