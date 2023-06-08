@@ -78,13 +78,20 @@
             <!--midgrid : canvas and tools-->
             <div class="grid_component grid_container_col">
                 <div class="grid_component" id="tools_L">
-
+                    <div id="palette">
+                        <button id="lineButton">Line</button>
+                        <button id="squareButton">Square</button>
+                        <button id="triangleButton">Triangle</button>
+                        <button id="sprayButton">Dot Spray</button>
+                        <button id="clear">clear</button>
+                        <input type="color" id="colorPicker">
+                      </div>
                 </div>
                 <div class="grid_component" id="tools_R">
 
                 </div>
-                <ul>canvas goes here</ul>
-                <canvas></canvas>
+                <ul></ul>
+                <canvas id="canvas" width="1000px" height="500px%"></canvas>
             </div>
             <!--lowgrid : user Info -->
             <div class="grid_component grid_container_col">
@@ -110,11 +117,11 @@
             </div>
         </div>
         <div class="item grid_container">
-            <h1>기록창</h1>
+            <h1>기록</h1>
 
         </div>
         <div class="item grid_container">
-            <h1>랜덤창</h1>
+            <h1>순위</h1>
 
         </div>
     </div>
