@@ -1,23 +1,30 @@
 const oracledb = require('oracledb');
 const dbConfig = require('./config/dbconfig');
 
-async function getConn(){
+async function getConn() {
     let conn;
-    try{
+    try {
         conn = await oracledb.getConnection(dbConfig);
         console.log('conn start');
-    }catch(err){
-        console.log('conn failed',err);
+    } catch (err) {
+        console.log('conn failed', err);
+        throw err;
     }
     return conn;
 }
 //                                 deafult
-async function selectData(conn,sql,binds=[]){
-    return await conn.execute(sql,binds,{outFormat: oracledb.OUT_FORMAT_OBJECT});
+async function selectData(conn, sql, binds = []) {
+    if (!conn) {
+        throw new Error('Connection object is undefined.');
+    }
+    return await conn.execute(sql, binds, { outFormat: oracledb.OUT_FORMAT_OBJECT });
 }
-//                                 default
-async function insertData(conn,sql,binds={}){
-    return await conn.execute(sql,binds,{autoCommit : true});
+
+async function insertData(conn, sql, binds = {}) {
+    if (!conn) {
+        throw new Error('Connection object is undefined.');
+    }
+    return await conn.execute(sql, binds, { autoCommit: true });
 }
 
 async function closeConn(conn){

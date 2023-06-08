@@ -53,11 +53,10 @@ app.post('/login', async (req,res)=>{
         conn = await db.getConn();
         //:1 :2 위치 바인딩
         //:emp_id :nm 이름 바인딩
-        const result = db.selectData("SELECT count(*) FROM user_catch WHERE user_id = :1 AND user_pw=:2 ",[user_id,user_pw]);
-        console.log(result);
-    
+        const result = db.selectData(conn," SELECT * FROM user_catch WHERE user_id = :1",user_id);
+        
         // Check if the user is authenticated
-        if (result.rows[0][0] > 0) {
+        if (result.length > 0) {
         // Set the user_id in the session
         req.session.user_id = user_id;
         
