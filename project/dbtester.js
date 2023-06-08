@@ -5,7 +5,7 @@ oracledb.getConnection(
   {
     user: 'c##java',
     password: 'oracle',
-    connectString: '192.168.219.106:1521/XE'
+    connectString: '192.168.219.106:1521/xe'
   },
   (err, connection) => {
     if (err) {

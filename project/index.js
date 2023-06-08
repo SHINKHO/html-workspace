@@ -1,8 +1,8 @@
+const db = require('./db');
 const express = require('express');
 const http = require('http');
 const path = require('path');
 const app = express();
-const db = require('./db');
 const session = require('express-session');
 const cookieParser = require("cookie-parser");
 const crypto = require('crypto');
@@ -53,8 +53,7 @@ app.post('/login', async (req,res)=>{
         conn = await db.getConn();
         //:1 :2 위치 바인딩
         //:emp_id :nm 이름 바인딩
-        const result = db.selectData(conn," SELECT * FROM user_catch WHERE user_id = :1",user_id);
-        
+        const result = db.selectData(conn,"SELECT * FROM user_catch where user_id ");
         // Check if the user is authenticated
         if (result.length > 0) {
         // Set the user_id in the session
